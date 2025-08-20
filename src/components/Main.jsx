@@ -68,10 +68,10 @@ export const Main = () => {
     : null;
 
   return (
-    <div className="max-w-screen-2xl mx-auto ">
+    <div className="max-w-screen-2xl mx-auto bg-[#121212]">
       <ModeSwitcher mode={mode} onModeChange={handleModeChange} />
 
-      <div className="w-10/12 mx-auto">
+      <div className="w-11/12 mx-auto">
         <ProcessDropdown
           selectedProcess={selectedProcess}
           onProcessChange={handleProcessChange}

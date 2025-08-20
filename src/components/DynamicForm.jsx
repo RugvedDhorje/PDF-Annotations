@@ -14,8 +14,8 @@ const DynamicForm = ({
   if (!currentSchema) return null;
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
-      <h2 className="text-lg font-semibold mb-4">
+    <div className="p-2 mx-auto w-full md:w-10/12 rounded-lg">
+      <h2 className="text-lg font-semibold mb-4 text-[#e1e1e1]">
         {currentSchema.name} Fields
       </h2>
       <div className="space-y-4">
@@ -75,13 +75,20 @@ const FieldItem = ({
 
   return (
     <div
-      className={`p-3 border rounded-lg transition-colors ${getFieldClasses()} ${getBorderClasses()}`}
+      className={`
+    p-3 rounded-lg transition-colors cursor-pointer
+    bg-white/10 backdrop-blur-md
+    border border-white/20
+    shadow-md shadow-black/30
+    hover:bg-white/20 hover:shadow-lg
+    ${getFieldClasses()} ${getBorderClasses()}
+  `}
       onClick={() => (mode === "user" ? onFieldClick(field.name) : undefined)}
     >
       <div className="flex justify-between items-start mb-2">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-gray-200">
           {field.label}
-          {field.required && <span className="text-red-500 ml-1">*</span>}
+          {field.required && <span className="text-red-400 ml-1">*</span>}
         </label>
 
         {mode === "admin" && pdfFile && (
@@ -100,6 +107,33 @@ const FieldItem = ({
       {/* Show mapping status */}
       {selectedField === field.name && <MappingStatus />}
     </div>
+
+    // <div
+    //   className={`p-3 border rounded-lg transition-colors ${getFieldClasses()} ${getBorderClasses()}`}
+    //   onClick={() => (mode === "user" ? onFieldClick(field.name) : undefined)}
+    // >
+    //   <div className="flex justify-between items-start mb-2">
+    //     <label className="block text-sm font-medium text-gray-700">
+    //       {field.label}
+    //       {field.required && <span className="text-red-500 ml-1">*</span>}
+    //     </label>
+
+    //     {mode === "admin" && pdfFile && (
+    //       <AdminControls
+    //         fieldName={field.name}
+    //         selectedField={selectedField}
+    //         onFieldMapping={onFieldMapping}
+    //         onRemoveAnnotation={onRemoveAnnotation}
+    //       />
+    //     )}
+    //   </div>
+
+    //   {/* Show coordinates when annotation exists */}
+    //   {annotation && <AnnotationInfo annotation={annotation} />}
+
+    //   {/* Show mapping status */}
+    //   {selectedField === field.name && <MappingStatus />}
+    // </div>
   );
 };
 
@@ -117,8 +151,8 @@ const AdminControls = ({
       }}
       className={`px-3 py-1 text-xs rounded flex items-center space-x-1 ${
         selectedField === fieldName
-          ? "bg-orange-600 text-white"
-          : "bg-blue-600 text-white hover:bg-blue-700"
+          ? "bg-orange-400 text-white"
+          : "bg-blue-600/60 text-white hover:bg-blue-700"
       }`}
       title={
         selectedField === fieldName
@@ -133,7 +167,7 @@ const AdminControls = ({
         e.stopPropagation();
         onRemoveAnnotation(fieldName);
       }}
-      className="px-3 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700 flex items-center space-x-1"
+      className="px-3 py-1 text-xs bg-red-600/70 text-white rounded hover:bg-red-700 flex items-center space-x-1"
       title="Remove mapping"
     >
       <span>Remap</span>
@@ -156,7 +190,7 @@ const AnnotationInfo = ({ annotation }) => (
 );
 
 const MappingStatus = () => (
-  <div className="mb-2 text-xs text-orange-700 bg-orange-100 p-2 rounded flex items-center">
+  <div className="mb-2 text-xs text-gray-300 bg-black/30 p-2 mt-1 rounded flex items-center">
     <Square className="w-3 h-3 mr-1" />
     Click and drag on PDF to create annotation
   </div>
